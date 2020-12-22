@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="ui_core_white">#FFFFFF</color>
+    <color name="ui_core_black">#000000</color>
+    <color name="ui_core_icon_main">#FFFFFF</color>
+
+    <!-- Control colors -->
+    <color name="ui_core_negative_alpha">#F04D6A</color>
+    <color name="ui_core_negative_beta">#F47B91</color>
+
+    <color name="ui_core_positive_alpha">#3ABD96</color>
+    <color name="ui_core_positive_beta">#28BD90</color>
+
+    <color name="ui_core_warning_alpha">#F4AA34</color>
+    <color name="ui_core_warning_beta">#F7BE64</color>
+
+    <color name="ui_core_accent_alpha">#4F55E8</color>
+    <color name="ui_core_accent_beta">#7C81EE</color>
+
+    <!-- Text colors -->
+    <color name="ui_core_contrast_gamma">#718AA7</color>
+    <color name="ui_core_contrast_beta">#A5BDD9</color>
+    <color name="ui_core_contrast_alpha">#FFFFFF</color>
+
+    <!-- Background colors -->
+    <color name="ui_core_bg_alpha">#10112D</color>
+    <color name="ui_core_bg_beta">#141538</color>
+    <color name="ui_core_bg_gamma">#0C0D22</color>
+
+    <color name="ui_core_base_alpha">#181A44</color>
+
+    <color name="ui_core_bg_high_alpha">#20235A</color>
+    <color name="ui_core_bg_high_beta">#242866</color>
+    <color name="ui_core_bg_high_gamma">#1C1F4F</color>
+
+</resources>

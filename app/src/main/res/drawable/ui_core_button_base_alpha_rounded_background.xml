@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ui_core_bg_high_gamma">
+
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
+            <solid android:color="@color/ui_core_black" />
+        </shape>
+    </item>
+
+    <item>
+        <selector>
+            <item android:state_enabled="false">
+                <shape android:shape="rectangle">
+                    <corners android:radius="4dp" />
+                    <solid android:color="@color/ui_core_base_alpha" />
+                </shape>
+            </item>
+
+            <item android:state_selected="true">
+                <shape android:shape="rectangle">
+                    <corners android:radius="4dp" />
+                    <solid android:color="@color/ui_core_accent_alpha" />
+                </shape>
+            </item>
+
+            <item
+                android:drawable="@drawable/ui_core_base_alpha_rounded_background"
+                android:state_enabled="true" />
+
+        </selector>
+    </item>
+
+</ripple>

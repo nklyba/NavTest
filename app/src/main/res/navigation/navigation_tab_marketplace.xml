@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_tab_marketplace"
+    app:startDestination="@id/marketplaceFragment">
+
+    <fragment
+        android:id="@+id/marketplaceFragment"
+        android:name="com.space307.navtest.fragments.MarketplaceFragment"
+        tools:layout="@layout/fragment_marketplace" >
+
+        <action
+            android:id="@+id/navigateToFeaturePurchase"
+            app:destination="@id/marketplaceFeaturePurchaseFragment" />
+
+        <action
+            android:id="@+id/navigateToFeatureDetails"
+            app:destination="@id/marketplaceFeatureDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/marketplaceFeatureDetailsFragment"
+        android:name="com.space307.navtest.fragments.MarketplaceDetailsFragment"
+        tools:layout="@layout/fragment_marketplace_details" >
+
+        <argument
+            android:name="featureId"
+            app:argType="long"/>
+
+        <action
+            android:id="@+id/navigateToScreenshots"
+            app:destination="@id/marketplaceScreenshotsFragment" />
+
+        <action
+            android:id="@+id/navigateToFeaturePurchase"
+            app:destination="@id/marketplaceFeaturePurchaseFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/marketplaceFeaturePurchaseFragment"
+        android:name="com.space307.navtest.fragments.MarketplacePurchaseFragment"
+        tools:layout="@layout/fragment_marketplace_purchase">
+
+        <argument
+            android:name="featureId"
+            app:argType="long"/>
+
+        <action
+            android:id="@+id/navigateToMakeDepositWebViewReal"
+            app:destination="@id/depositFragment" />
+
+        <action
+            android:id="@+id/navigateToFeatureDetails"
+            app:destination="@id/marketplaceFeatureDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/marketplaceScreenshotsFragment"
+        android:name="com.space307.navtest.fragments.MarketplaceScreenshotsFragment"
+        tools:layout="@layout/fragment_marketplace_screenshots">
+
+        <argument
+            android:name="featureId"
+            app:argType="long"/>
+
+        <argument
+            android:name="screenshotsUrlsList"
+            app:argType="string[]"/>
+
+        <argument
+            android:name="selectedScreenshotPosition"
+            app:argType="integer"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/depositFragment"
+        android:name="com.space307.navtest.fragments.DepositFragment"
+        tools:layout="@layout/fragment_deposit" />
+
+</navigation>

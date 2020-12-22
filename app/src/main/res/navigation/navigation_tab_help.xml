@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/navigation_tab_help"
+app:startDestination="@id/helpFragment">
+
+<fragment
+    android:id="@+id/helpFragment"
+    android:name="com.space307.navtest.fragments.HelpFragment"
+    tools:layout="@layout/fragment_help" >
+
+    <action
+        android:id="@+id/navigateToTradingSignals"
+        app:destination="@id/tradingSignalsFragment" />
+
+    <action
+        android:id="@+id/navigateToVipMaterials"
+        app:destination="@id/vipMaterialsFragment" />
+
+    <action
+        android:id="@+id/navigateToVipConsultant"
+        app:destination="@id/vipConsultantFragment" />
+
+    <action
+        android:id="@+id/navigateToSupportContacts"
+        app:destination="@id/supportContactsFragment" />
+
+    <action
+        android:id="@+id/navigateToFaq"
+        app:destination="@id/faqFragment" />
+
+    <action
+        android:id="@+id/navigateToInsights"
+        app:destination="@id/insightsFragment" />
+
+    <action
+        android:id="@+id/navigateToEducation"
+        app:destination="@id/educationFragment" />
+
+</fragment>
+
+<fragment
+    android:id="@+id/tradingSignalsFragment"
+    android:name="com.space307.navtest.fragments.TradingSignalsFragment"
+    tools:layout="@layout/fragment_trading_signals" >
+
+    <action
+        android:id="@+id/navigateToTerms"
+        app:destination="@id/termsFragment" />
+
+    <action
+        android:id="@+id/navigateToLevels"
+        app:destination="@id/levelsFragment" />
+
+</fragment>
+
+<fragment
+    android:id="@+id/termsFragment"
+    android:name="com.space307.navtest.fragments.TermsFragment"
+    tools:layout="@layout/fragment_terms" />
+
+<fragment
+    android:id="@+id/levelsFragment"
+    android:name="com.space307.navtest.fragments.LevelsFragment"
+    tools:layout="@layout/fragment_levels" />
+
+<fragment
+    android:id="@+id/vipMaterialsFragment"
+    android:name="com.space307.navtest.fragments.VipMaterialsFragment"
+    tools:layout="@layout/fragment_vip_materials" />
+
+<fragment
+    android:id="@+id/vipConsultantFragment"
+    android:name="com.space307.navtest.fragments.VipConsultantFragment"
+    tools:layout="@layout/fragment_vip_consultant">
+
+    <deepLink app:uri="app://login/user-signup"/>
+
+    <action
+        android:id="@+id/navigateToPhoneCodes"
+        app:destination="@id/phoneCodesFragment" />
+
+    <action
+        android:id="@+id/navigateToLevels"
+        app:destination="@id/levelsFragment" />
+
+</fragment>
+
+<fragment
+    android:id="@+id/phoneCodesFragment"
+    android:name="com.space307.navtest.fragments.PhoneCodesFragment"
+    tools:layout="@layout/fragment_phone_codes" />
+
+<fragment
+    android:id="@+id/supportContactsFragment"
+    android:name="com.space307.navtest.fragments.SupportContactsFragment"
+    tools:layout="@layout/fragment_support_contacts" >
+
+    <action
+        android:id="@+id/navigateToSupportLiveTexChat"
+        app:destination="@id/supportLiveTexChatFragment" />
+
+</fragment>
+
+<fragment
+    android:id="@+id/supportLiveTexChatFragment"
+    android:name="com.space307.navtest.fragments.SupportLiveTexChatFragment"
+    tools:layout="@layout/fragment_support_chat" />
+
+<fragment
+    android:id="@+id/faqFragment"
+    android:name="com.space307.navtest.fragments.FaqFragment"
+    tools:layout="@layout/fragment_faq" />
+
+<fragment
+    android:id="@+id/insightsFragment"
+    android:name="com.space307.navtest.fragments.InsightsFragment"
+    tools:layout="@layout/fragment_insights" />
+
+<fragment
+    android:id="@+id/educationFragment"
+    android:name="com.space307.navtest.fragments.EducationFragment"
+    tools:layout="@layout/fragment_education" />
+
+</navigation>

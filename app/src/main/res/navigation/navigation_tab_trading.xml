@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_tab_trading"
+    app:startDestination="@id/tradingFragment">
+
+    <fragment
+        android:id="@+id/tradingFragment"
+        android:name="com.space307.navtest.fragments.TradingFragment"
+        tools:layout="@layout/fragment_trading" >
+        <action
+            android:id="@+id/action_tradingFragment_to_opTradingFragment"
+            app:destination="@id/opTradingFragment" />
+        <action
+            android:id="@+id/action_tradingFragment_to_fxTradingFragment"
+            app:destination="@id/fxTradingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/opTradingFragment"
+        android:name="com.space307.navtest.fragments.OpTradingFragment"
+        tools:layout="@layout/fragment_op_trading" />
+
+    <fragment
+        android:id="@+id/fxTradingFragment"
+        android:name="com.space307.navtest.fragments.FxTradingFragment"
+        tools:layout="@layout/fragment_fx_trading" />
+
+</navigation>

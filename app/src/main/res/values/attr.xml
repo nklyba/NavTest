@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="UiCoreNavigationItemView">
+        <attr name="ui_core_nav_item_icon" format="reference" />
+        <attr name="ui_core_nav_item_title" format="string" />
+        <attr name="ui_core_nav_item_color" format="reference" />
+        <attr name="ui_core_nav_item_desc" format="string" />
+    </declare-styleable>
+
+</resources>
