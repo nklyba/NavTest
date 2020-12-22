@@ -17,8 +17,21 @@ class TabNavigationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tab_navigation, container, false)
-        val navigationBar = view.findViewById<NavigationBarView>(R.id.tab_navigation_bar_view)
 
+        if (savedInstanceState == null) {
+            setupNavigationBar(view.findViewById(R.id.tab_navigation_bar_view))
+        }
+
+        return view
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        setupNavigationBar(requireView().findViewById(R.id.tab_navigation_bar_view))
+    }
+
+    private fun setupNavigationBar(navigationBar: NavigationBarView) {
         val navGraphIds = listOf(
             R.navigation.navigation_tab_trading,
             R.navigation.navigation_tab_help,
@@ -38,7 +51,5 @@ class TabNavigationFragment : Fragment() {
         controllerLiveData.observe(requireActivity(), { navController ->
             navigationBar.selectedTab = getNavigationBarTabFromGraphId(navController.graph.id)
         })
-
-        return view
     }
 }

@@ -2,6 +2,8 @@ package com.space307.navtest.views
 
 import android.content.Context
 import android.graphics.PorterDuff
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
@@ -16,6 +18,11 @@ import com.space307.navtest.data.NavigationBarTabType
 class NavigationBarView  @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
+
+    companion object {
+        private const val PARAM_SUPER_STATE = "1b28883b-f926-454d-b1a0-bc11f5b6a2af"
+        private const val PARAM_SELECTED_TAB = "1f3s5j6f-f3j5-l3rf-mk32-a5f4s67d3k1a"
+    }
 
     private val tradingImageView: ImageView
     private val dealsImageView: ImageView
@@ -67,6 +74,20 @@ class NavigationBarView  @JvmOverloads constructor(
         dealsCountTextView.visibility = View.GONE
         helpCountTextView.visibility = View.GONE
         moreCountTextView.visibility = View.GONE
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        return Bundle().apply {
+            putParcelable(PARAM_SUPER_STATE, super.onSaveInstanceState())
+            putSerializable(PARAM_SELECTED_TAB, selectedTab)
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable) {
+        if (state is Bundle) {
+            selectedTab = state.getSerializable(PARAM_SELECTED_TAB) as NavigationBarTabType
+            super.onRestoreInstanceState(state.getParcelable(PARAM_SUPER_STATE))
+        }
     }
 
     fun setTabSelectedListener(listener: (selectedTab: NavigationBarTabType) -> Unit) {
