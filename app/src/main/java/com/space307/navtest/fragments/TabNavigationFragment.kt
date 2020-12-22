@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import com.space307.navtest.R
 import com.space307.navtest.utils.getNavigationBarTabFromGraphId
 import com.space307.navtest.utils.setupWithNavController
@@ -17,18 +19,35 @@ class TabNavigationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tab_navigation, container, false)
-
-        if (savedInstanceState == null) {
-            setupNavigationBar(view.findViewById(R.id.tab_navigation_bar_view))
-        }
+        setupNavigationBar(view.findViewById(R.id.tab_navigation_bar_view))
 
         return view
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-        setupNavigationBar(requireView().findViewById(R.id.tab_navigation_bar_view))
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val controller = findNavController(
+                    requireActivity(),
+                    R.id.tab_navigation_container
+                )
+                var isBackHandled = controller.navigateUp()
+                if (!isBackHandled) {
+                    isBackHandled = if (childFragmentManager.backStackEntryCount > 0) {
+                        childFragmentManager.popBackStack()
+                        true
+                    } else {
+                        false
+                    }
+                }
+                if(!isBackHandled) {
+                    requireActivity().finish()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun setupNavigationBar(navigationBar: NavigationBarView) {

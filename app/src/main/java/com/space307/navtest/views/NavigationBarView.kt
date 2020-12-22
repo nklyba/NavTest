@@ -11,11 +11,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import com.space307.navtest.R
 import com.space307.navtest.data.NavigationBarTabType
 
-class NavigationBarView  @JvmOverloads constructor(
+class NavigationBarView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
@@ -34,9 +33,7 @@ class NavigationBarView  @JvmOverloads constructor(
     private val helpCountTextView: TextView
     private val moreCountTextView: TextView
 
-    private val marketplaceContainerView: View
-
-    private lateinit var tabSelectedListener: (selectedTab: NavigationBarTabType) -> Unit
+    private var tabSelectedListener: ((selectedTab: NavigationBarTabType) -> Unit)? = null
 
     init {
         View.inflate(context, R.layout.view_bottom_navigation, this)
@@ -51,25 +48,25 @@ class NavigationBarView  @JvmOverloads constructor(
         helpCountTextView = findViewById(R.id.navigation_help_counter_text_view)
         moreCountTextView = findViewById(R.id.navigation_more_counter_text_view)
 
-        marketplaceContainerView = findViewById(R.id.navigation_marketplace_container)
-
         initViews()
     }
 
     private fun initViews() {
-        findViewById<View>(R.id.navigation_trading_container).setOnClickListener { tabSelectedListener(
-            NavigationBarTabType.TRADING
-        ) }
-        findViewById<View>(R.id.navigation_deals_container).setOnClickListener { tabSelectedListener(
-            NavigationBarTabType.DEALS
-        ) }
-        findViewById<View>(R.id.navigation_help_container).setOnClickListener { tabSelectedListener(
-            NavigationBarTabType.HELP
-        ) }
-        marketplaceContainerView.setOnClickListener { tabSelectedListener(NavigationBarTabType.MARKETPLACE) }
-        findViewById<View>(R.id.navigation_more_container).setOnClickListener { tabSelectedListener(
-            NavigationBarTabType.MORE
-        ) }
+        findViewById<View>(R.id.navigation_trading_container).setOnClickListener {
+            selectedTab = NavigationBarTabType.TRADING
+        }
+        findViewById<View>(R.id.navigation_deals_container).setOnClickListener {
+            selectedTab = NavigationBarTabType.DEALS
+        }
+        findViewById<View>(R.id.navigation_help_container).setOnClickListener {
+            selectedTab = NavigationBarTabType.HELP
+        }
+        findViewById<View>(R.id.navigation_marketplace_container).setOnClickListener {
+            selectedTab = NavigationBarTabType.MARKETPLACE
+        }
+        findViewById<View>(R.id.navigation_more_container).setOnClickListener {
+            selectedTab = NavigationBarTabType.MORE
+        }
 
         dealsCountTextView.visibility = View.GONE
         helpCountTextView.visibility = View.GONE
@@ -104,47 +101,33 @@ class NavigationBarView  @JvmOverloads constructor(
         set(value) {
             field = value
 
-            tradingImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
-
-            dealsImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
-
-            helpImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
-
-            marketplaceImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
-
-            moreImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
-
-            when (value) {
-                NavigationBarTabType.TRADING -> {
-                    tradingImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
-                }
-                NavigationBarTabType.DEALS -> {
-                    dealsImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
-                }
-                NavigationBarTabType.HELP -> {
-                    helpImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
-                }
-                NavigationBarTabType.MARKETPLACE -> {
-                    marketplaceImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
-                }
-                NavigationBarTabType.MORE -> {
-                    moreImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
-                }
-            }
+            updateSelectedTabState(value)
+            tabSelectedListener?.invoke(value)
         }
 
-    fun setDealsCount(dealsCount: Int) {
-        dealsCountTextView.visibility = if (dealsCount > 0) View.VISIBLE else View.GONE
-        dealsCountTextView.text = dealsCount.toString()
-    }
+    private fun updateSelectedTabState(value: NavigationBarTabType) {
+        tradingImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
+        dealsImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
+        helpImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
+        marketplaceImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
+        moreImageView.setColorFilter(mainColor, PorterDuff.Mode.SRC_IN)
 
-    fun setHelpCount(helpCount: Int) {
-        helpCountTextView.visibility = if (helpCount > 0) View.VISIBLE else View.GONE
-        helpCountTextView.text = helpCount.toString()
-    }
-
-    fun setMoreCount(moreCount: Int) {
-        moreCountTextView.visibility = if (moreCount > 0) View.VISIBLE else View.GONE
-        moreCountTextView.text = moreCount.toString()
+        when (value) {
+            NavigationBarTabType.TRADING -> {
+                tradingImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
+            }
+            NavigationBarTabType.DEALS -> {
+                dealsImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
+            }
+            NavigationBarTabType.HELP -> {
+                helpImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
+            }
+            NavigationBarTabType.MARKETPLACE -> {
+                marketplaceImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
+            }
+            NavigationBarTabType.MORE -> {
+                moreImageView.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN)
+            }
+        }
     }
 }
