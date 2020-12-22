@@ -49,12 +49,8 @@
             app:argType="long"/>
 
         <action
-            android:id="@+id/navigateToMakeDepositWebViewReal"
+            android:id="@+id/navigateToDeposit"
             app:destination="@id/depositFragment" />
-
-        <action
-            android:id="@+id/navigateToFeatureDetails"
-            app:destination="@id/marketplaceFeatureDetailsFragment" />
 
     </fragment>
 

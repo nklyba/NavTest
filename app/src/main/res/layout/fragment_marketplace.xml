@@ -2,7 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <TextView
         android:id="@+id/page_title_text_view"
@@ -14,5 +17,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/feature_purchase_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Feature purchase"
+        app:layout_constraintBottom_toTopOf="@id/feature_details_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/feature_details_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Feature details"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
