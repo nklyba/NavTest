@@ -75,8 +75,6 @@ app:startDestination="@id/helpFragment">
     android:name="com.space307.navtest.fragments.VipConsultantFragment"
     tools:layout="@layout/fragment_vip_consultant">
 
-    <deepLink app:uri="app://login/user-signup"/>
-
     <action
         android:id="@+id/navigateToPhoneCodes"
         app:destination="@id/phoneCodesFragment" />
