@@ -11,14 +11,17 @@
         tools:layout="@layout/fragment_more" >
 
         <action
-            android:id="@+id/action_moreFragment_to_depositFragment"
+            android:id="@+id/navigateToDeposit"
             app:destination="@id/depositFragment" />
+
         <action
-            android:id="@+id/action_moreFragment_to_withdrawFragment"
+            android:id="@+id/navigateToWithdraw"
             app:destination="@id/withdrawFragment" />
+
         <action
-            android:id="@+id/action_moreFragment_to_settingsFragment"
+            android:id="@+id/navigateToSettings"
             app:destination="@id/settingsFragment" />
+
     </fragment>
 
     <fragment
@@ -34,6 +37,16 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.space307.navtest.fragments.SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/navigateToSoundPacks"
+            app:destination="@id/soundPacksFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/soundPacksFragment"
+        android:name="com.space307.navtest.fragments.SoundPacksFragment"
+        tools:layout="@layout/fragment_sound_packs" />
 
 </navigation>
