@@ -8,6 +8,26 @@
     <fragment
         android:id="@+id/dealsListFragment"
         android:name="com.space307.navtest.fragments.DealsListFragment"
-        tools:layout="@layout/fragment_deals_list" />
+        tools:layout="@layout/fragment_deals_list">
+
+        <action
+            android:id="@+id/navigateToOpClosedDealBottomSheet"
+            app:destination="@id/opClosedDealBottomSheet" />
+
+        <action
+            android:id="@+id/navigateToFxClosedDealBottomSheet"
+            app:destination="@id/fxClosedDealBottomSheet" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/opClosedDealBottomSheet"
+        android:name="com.space307.navtest.fragments.OpClosedDealBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_closed_deal_op" />
+
+    <dialog
+        android:id="@+id/fxClosedDealBottomSheet"
+        android:name="com.space307.navtest.fragments.FxClosedDealBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_closed_deal_fx" />
 
 </navigation>
