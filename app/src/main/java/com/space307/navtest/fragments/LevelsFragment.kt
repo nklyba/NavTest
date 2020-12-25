@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.space307.navtest.R
-import com.space307.navtest.utils.getNavigationBarTabFromGraphId
-import com.space307.navtest.utils.setupWithNavController
-import com.space307.navtest.views.NavigationBarView
 
 class LevelsFragment : Fragment() {
 

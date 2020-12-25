@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.space307.navtest.R
 import com.space307.navtest.utils.getNavigationBarTabFromGraphId
+import com.space307.navtest.utils.setTradingPlatform
 import com.space307.navtest.utils.setupWithNavController
 import com.space307.navtest.views.NavigationBarView
 
@@ -19,7 +21,14 @@ class TabNavigationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tab_navigation, container, false)
+
         setupNavigationBar(view.findViewById(R.id.tab_navigation_bar_view))
+
+        if (savedInstanceState == null) {
+            val navHostFragment = childFragmentManager.findFragmentById(R.id.tab_navigation_container) as NavHostFragment
+            val navController = navHostFragment.navController
+            setTradingPlatform(navController)
+        }
 
         return view
     }
@@ -42,7 +51,7 @@ class TabNavigationFragment : Fragment() {
                         false
                     }
                 }
-                if(!isBackHandled) {
+                if (!isBackHandled) {
                     requireActivity().finish()
                 }
             }
@@ -51,6 +60,8 @@ class TabNavigationFragment : Fragment() {
     }
 
     private fun setupNavigationBar(navigationBar: NavigationBarView) {
+
+
         val navGraphIds = listOf(
             R.navigation.navigation_tab_trading,
             R.navigation.navigation_tab_help,

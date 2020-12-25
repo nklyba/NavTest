@@ -16,7 +16,7 @@ import com.space307.navtest.data.NavigationBarTabType
 import com.space307.navtest.views.NavigationBarView
 
 /**
- * Manages the various graphs needed for a [BottomNavigationView].
+ * Manages the various graphs needed for a [NavigationBarView].
  *
  * This sample is a workaround until the Navigation Component supports multiple back stacks.
  */

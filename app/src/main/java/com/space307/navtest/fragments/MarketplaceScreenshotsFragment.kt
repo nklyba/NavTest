@@ -8,9 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.space307.navtest.R
-import com.space307.navtest.utils.getNavigationBarTabFromGraphId
-import com.space307.navtest.utils.setupWithNavController
-import com.space307.navtest.views.NavigationBarView
 
 class MarketplaceScreenshotsFragment : Fragment() {
 

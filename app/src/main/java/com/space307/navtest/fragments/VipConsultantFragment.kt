@@ -8,9 +8,6 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.space307.navtest.R
-import com.space307.navtest.utils.getNavigationBarTabFromGraphId
-import com.space307.navtest.utils.setupWithNavController
-import com.space307.navtest.views.NavigationBarView
 
 class VipConsultantFragment : Fragment() {
 

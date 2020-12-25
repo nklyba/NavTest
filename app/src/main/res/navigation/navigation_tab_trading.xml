@@ -3,28 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_tab_trading"
-    app:startDestination="@id/tradingFragment">
-
-    <fragment
-        android:id="@+id/tradingFragment"
-        android:name="com.space307.navtest.fragments.TradingFragment"
-        tools:layout="@layout/fragment_trading" >
-        <action
-            android:id="@+id/navigateToOpTradingFragment"
-            app:destination="@id/opTradingFragment" />
-        <action
-            android:id="@+id/navigateToFxTradingFragment"
-            app:destination="@id/fxTradingFragment" />
-    </fragment>
+    app:startDestination="@id/opTradingFragment">
 
     <fragment
         android:id="@+id/opTradingFragment"
         android:name="com.space307.navtest.fragments.OpTradingFragment"
-        tools:layout="@layout/fragment_op_trading" />
+        tools:layout="@layout/fragment_op_trading">
+        <action
+            android:id="@+id/navigateToAssets"
+            app:destination="@id/assetsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/fxTradingFragment"
         android:name="com.space307.navtest.fragments.FxTradingFragment"
-        tools:layout="@layout/fragment_fx_trading" />
+        tools:layout="@layout/fragment_fx_trading">
+        <action
+            android:id="@+id/navigateToAssets"
+            app:destination="@id/assetsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/assetsFragment"
+        android:name="com.space307.navtest.fragments.AssetsFragment"
+        tools:layout="@layout/fragment_assets">
+        <action
+            android:id="@+id/navigateToOpTrading"
+            app:destination="@id/opTradingFragment"
+            app:popUpTo="@id/opTradingFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/navigateToFxTrading"
+            app:destination="@id/fxTradingFragment"
+            app:popUpTo="@id/fxTradingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>
