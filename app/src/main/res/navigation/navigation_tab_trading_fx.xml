@@ -2,17 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_tab_trading"
-    app:startDestination="@id/opTradingFragment">
-
-    <fragment
-        android:id="@+id/opTradingFragment"
-        android:name="com.space307.navtest.fragments.OpTradingFragment"
-        tools:layout="@layout/fragment_op_trading">
-        <action
-            android:id="@+id/navigateToAssets"
-            app:destination="@id/assetsFragment" />
-    </fragment>
+    android:id="@+id/navigation_tab_trading_fx"
+    app:startDestination="@id/fxTradingFragment">
 
     <fragment
         android:id="@+id/fxTradingFragment"
@@ -27,11 +18,6 @@
         android:id="@+id/assetsFragment"
         android:name="com.space307.navtest.fragments.AssetsFragment"
         tools:layout="@layout/fragment_assets">
-        <action
-            android:id="@+id/navigateToOpTrading"
-            app:destination="@id/opTradingFragment"
-            app:popUpTo="@id/opTradingFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/navigateToFxTrading"
             app:destination="@id/fxTradingFragment"

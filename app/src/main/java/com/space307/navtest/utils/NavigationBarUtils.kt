@@ -1,19 +1,16 @@
 package com.space307.navtest.utils
 
 import android.content.Intent
-import android.util.SparseArray
-import androidx.annotation.NavigationRes
-import androidx.core.util.forEach
-import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.space307.navtest.R
 import com.space307.navtest.data.NavigationBarTabType
 import com.space307.navtest.views.NavigationBarView
+
+private val FIRST_TAB = NavigationBarTabType.TRADING
 
 /**
  * Manages the various graphs needed for a [NavigationBarView].
@@ -21,22 +18,21 @@ import com.space307.navtest.views.NavigationBarView
  * This sample is a workaround until the Navigation Component supports multiple back stacks.
  */
 fun NavigationBarView.setupWithNavController(
-    @NavigationRes navGraphIds: List<Int>,
+    tabsToGraphIdsMap: Map<NavigationBarTabType, Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
     intent: Intent
-): LiveData<NavController> {
+): LiveData<NavigationBarTabType> {
 
-    // Map of tags
-    val graphIdToTagMap = SparseArray<String>()
+    val tabsToTagMap = mutableMapOf<NavigationBarTabType, String>()
+    var selectedNavController: NavController? = null
+
     // Result. Mutable live data with the selected controlled
-    val selectedNavController = MutableLiveData<NavController>()
-
-    var firstFragmentGraphId = 0
+    val selectedNavigationTab = MutableLiveData<NavigationBarTabType>()
 
     // First create a NavHostFragment for each NavGraph ID
-    navGraphIds.forEachIndexed { index, navGraphId ->
-        val fragmentTag = getFragmentTag(index)
+    tabsToGraphIdsMap.forEach { (tab, navGraphId) ->
+        val fragmentTag = getFragmentTag(tab)
 
         // Find or create the Navigation host fragment
         val navHostFragment = obtainNavHostFragment(
@@ -46,36 +42,30 @@ fun NavigationBarView.setupWithNavController(
             containerId
         )
 
-        // Obtain its id
-        val graphId = navHostFragment.navController.graph.id
-
-        if (index == 0) {
-            firstFragmentGraphId = graphId
-        }
-
         // Save to the map
-        graphIdToTagMap[graphId] = fragmentTag
+        tabsToTagMap[tab] = fragmentTag
 
-        // Attach or detach nav host fragment depending on whether it's the selected item.
-        if (this.selectedTab == getNavigationBarTabFromGraphId(graphId)) {
-            // Update livedata with the selected graph
-            selectedNavController.value = navHostFragment.navController
-            attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
+        // Attach or detach nav host fragment depending on whether it's the selected tab.
+        if (this.selectedTab == tab) {
+            // Update livedata with the selected tab
+            selectedNavigationTab.value = tab
+            selectedNavController = navHostFragment.navController
+            attachNavHostFragment(fragmentManager, navHostFragment, tab == FIRST_TAB)
         } else {
             detachNavHostFragment(fragmentManager, navHostFragment)
         }
     }
 
-    // Now connect selecting an item with swapping Fragments
-    var selectedItemTag = graphIdToTagMap[this.selectedTab.mapToGraphId()]
-    val firstFragmentTag = graphIdToTagMap[firstFragmentGraphId]
+    // Now connect selecting an tab with swapping Fragments
+    var selectedItemTag = tabsToTagMap[this.selectedTab]
+    val firstFragmentTag = tabsToTagMap[FIRST_TAB]!!
     var isOnFirstFragment = selectedItemTag == firstFragmentTag
 
-    // When a navigation item is selected
-    setTabSelectedListener { item ->
+    // When a navigation tab is selected
+    setTabSelectedListener { selectedTab ->
         // Don't do anything if the state is state has already been saved.
         if (!fragmentManager.isStateSaved) {
-            val newlySelectedItemTag = graphIdToTagMap[item.mapToGraphId()]
+            val newlySelectedItemTag = tabsToTagMap[selectedTab]
             if (selectedItemTag != newlySelectedItemTag) {
                 // Pop everything above the first fragment (the "fixed start destination")
                 fragmentManager.popBackStack(
@@ -100,7 +90,7 @@ fun NavigationBarView.setupWithNavController(
                         .setPrimaryNavigationFragment(selectedFragment)
                         .apply {
                             // Detach all other Fragments
-                            graphIdToTagMap.forEach { _, fragmentTag ->
+                            tabsToTagMap.values.forEach { fragmentTag ->
                                 if (fragmentTag != newlySelectedItemTag) {
                                     detach(fragmentManager.findFragmentByTag(firstFragmentTag)!!)
                                 }
@@ -112,39 +102,55 @@ fun NavigationBarView.setupWithNavController(
                 }
                 selectedItemTag = newlySelectedItemTag
                 isOnFirstFragment = selectedItemTag == firstFragmentTag
-                selectedNavController.value = selectedFragment.navController
+                selectedNavController = selectedFragment.navController
+                selectedNavigationTab.value = selectedTab
             }
         }
     }
 
     // Handle deep link
-    setupDeepLinks(navGraphIds, fragmentManager, containerId, intent)
+    setupDeepLinks(tabsToGraphIdsMap, fragmentManager, containerId, intent)
 
     // Finally, ensure that we update our BottomNavigationView when the back stack changes
     fragmentManager.addOnBackStackChangedListener {
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag)) {
-            this.selectedTab = getNavigationBarTabFromGraphId(firstFragmentGraphId)
+            this.selectedTab = FIRST_TAB
         }
 
         // Reset the graph if the currentDestination is not valid (happens when the back
         // stack is popped after using the back button).
-        selectedNavController.value?.let { controller ->
+        selectedNavController?.let { controller ->
             if (controller.currentDestination == null) {
                 controller.navigate(controller.graph.id)
             }
         }
     }
-    return selectedNavController
+    return selectedNavigationTab
+}
+
+fun changeTabNavigationGraph(
+    fragmentManager: FragmentManager,
+    tab: NavigationBarTabType,
+    navGraphId: Int,
+    containerId: Int,
+) {
+    val fragmentTag = getFragmentTag(tab)
+    val navHostFragment = NavHostFragment.create(navGraphId)
+    fragmentManager.beginTransaction()
+        .replace(containerId, navHostFragment, fragmentTag)
+        .commitNow()
+
+    attachNavHostFragment(fragmentManager, navHostFragment, tab == FIRST_TAB)
 }
 
 private fun NavigationBarView.setupDeepLinks(
-    navGraphIds: List<Int>,
+    tabsToGraphIdsMap: Map<NavigationBarTabType, Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
     intent: Intent
 ) {
-    navGraphIds.forEachIndexed { index, navGraphId ->
-        val fragmentTag = getFragmentTag(index)
+    tabsToGraphIdsMap.forEach { (tab, navGraphId) ->
+        val fragmentTag = getFragmentTag(tab)
 
         // Find or create the Navigation host fragment
         val navHostFragment = obtainNavHostFragment(
@@ -154,11 +160,8 @@ private fun NavigationBarView.setupDeepLinks(
             containerId
         )
         // Handle Intent
-        if (navHostFragment.navController.handleDeepLink(intent)
-            && selectedTab.mapToGraphId() != navHostFragment.navController.graph.id
-        ) {
-            this.selectedTab =
-                getNavigationBarTabFromGraphId(navHostFragment.navController.graph.id)
+        if (navHostFragment.navController.handleDeepLink(intent) && selectedTab != tab) {
+            this.selectedTab = tab
         }
     }
 }
@@ -215,21 +218,4 @@ private fun FragmentManager.isOnBackStack(backStackName: String): Boolean {
     return false
 }
 
-private fun getFragmentTag(index: Int) = "bottomNavigation#$index"
-
-fun getNavigationBarTabFromGraphId(@NavigationRes navigationId: Int) = when (navigationId) {
-    R.id.navigation_tab_trading -> NavigationBarTabType.TRADING
-    R.id.navigation_tab_deals_list -> NavigationBarTabType.DEALS
-    R.id.navigation_tab_marketplace -> NavigationBarTabType.MARKETPLACE
-    R.id.navigation_tab_help -> NavigationBarTabType.HELP
-    R.id.navigation_tab_more -> NavigationBarTabType.MORE
-    else -> throw IllegalStateException("Unsupported navigation graph")
-}
-
-fun NavigationBarTabType.mapToGraphId(): Int = when (this) {
-    NavigationBarTabType.TRADING -> R.id.navigation_tab_trading
-    NavigationBarTabType.DEALS -> R.id.navigation_tab_deals_list
-    NavigationBarTabType.MARKETPLACE -> R.id.navigation_tab_marketplace
-    NavigationBarTabType.HELP -> R.id.navigation_tab_help
-    NavigationBarTabType.MORE -> R.id.navigation_tab_more
-}
+private fun getFragmentTag(tab: NavigationBarTabType) = "bottomNavigation#${tab.ordinal}"
