@@ -30,15 +30,7 @@ class AssetsFragment : Fragment() {
             if (currentPlatform == PlatformType.OPTIONS_MODE) {
                 findNavController().navigate(R.id.navigateToOpTrading)
             } else {
-                PreferenceProvider.put(PLATFORM_KEY, PlatformType.OPTIONS_MODE.key)
-
-                val navHostFragment = parentFragment as Fragment
-                changeTabNavigationGraph(
-                    navHostFragment.parentFragmentManager,
-                    NavigationBarTabType.TRADING,
-                    R.navigation.navigation_tab_trading_op,
-                    R.id.tab_navigation_container
-                )
+                changePlatform(PlatformType.OPTIONS_MODE)
             }
         }
 
@@ -50,18 +42,27 @@ class AssetsFragment : Fragment() {
             if (currentPlatform == PlatformType.FOREX_MODE) {
                 findNavController().navigate(R.id.navigateToFxTrading)
             } else {
-                PreferenceProvider.put(PLATFORM_KEY, PlatformType.FOREX_MODE.key)
-
-                val navHostFragment = parentFragment as Fragment
-                changeTabNavigationGraph(
-                    navHostFragment.parentFragmentManager,
-                    NavigationBarTabType.TRADING,
-                    R.navigation.navigation_tab_trading_fx,
-                    R.id.tab_navigation_container
-                )
+                changePlatform(PlatformType.FOREX_MODE)
             }
         }
 
         return view
+    }
+
+    private fun changePlatform(platform: PlatformType) {
+        PreferenceProvider.put(PLATFORM_KEY, platform.key)
+
+        val navGraphId = when(platform) {
+            PlatformType.OPTIONS_MODE -> R.navigation.navigation_tab_trading_op
+            PlatformType.FOREX_MODE -> R.navigation.navigation_tab_trading_fx
+        }
+
+        val navHostFragment = parentFragment as Fragment
+        changeTabNavigationGraph(
+            fragmentManager = navHostFragment.parentFragmentManager,
+            tab = NavigationBarTabType.TRADING,
+            navGraphId = navGraphId,
+            containerId = R.id.tab_navigation_container
+        )
     }
 }

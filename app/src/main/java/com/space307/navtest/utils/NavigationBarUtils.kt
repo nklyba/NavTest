@@ -58,7 +58,7 @@ fun NavigationBarView.setupWithNavController(
 
     // Now connect selecting an tab with swapping Fragments
     var selectedItemTag = tabsToTagMap[this.selectedTab]
-    val firstFragmentTag = tabsToTagMap[FIRST_TAB]!!
+    val firstFragmentTag = getFragmentTag(FIRST_TAB)
     var isOnFirstFragment = selectedItemTag == firstFragmentTag
 
     // When a navigation tab is selected
@@ -132,9 +132,14 @@ fun changeTabNavigationGraph(
     fragmentManager: FragmentManager,
     tab: NavigationBarTabType,
     navGraphId: Int,
-    containerId: Int,
+    containerId: Int
 ) {
     val fragmentTag = getFragmentTag(tab)
+
+    if (tab == FIRST_TAB && fragmentManager.isOnBackStack(fragmentTag)) {
+        fragmentManager.popBackStackImmediate()
+    }
+
     val navHostFragment = NavHostFragment.create(navGraphId)
     fragmentManager.beginTransaction()
         .replace(containerId, navHostFragment, fragmentTag)

@@ -17,13 +17,16 @@ import com.space307.navtest.views.NavigationBarView
 
 class TabNavigationFragment : Fragment() {
 
+    private lateinit var navigationBar: NavigationBarView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tab_navigation, container, false)
 
-        setupNavigationBar(view.findViewById(R.id.tab_navigation_bar_view))
+        navigationBar = view.findViewById(R.id.tab_navigation_bar_view)
+        setupNavigationBar(navigationBar)
 
         return view
     }
@@ -54,6 +57,10 @@ class TabNavigationFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+    }
+
+    fun setSelectedNavigationTab(tab: NavigationBarTabType) {
+        navigationBar.selectedTab = tab
     }
 
     private fun setupNavigationBar(navigationBar: NavigationBarView) {
