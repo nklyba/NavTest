@@ -28,9 +28,9 @@ class DealsListFragment : Fragment() {
 
             if (currentPlatform != PlatformType.OPTIONS_MODE) {
                 changePlatform(PlatformType.OPTIONS_MODE)
+            } else {
+                selectTradingTab()
             }
-
-            selectTradingTab()
         }
 
         view.findViewById<Button>(R.id.active_fx_deal_button).setOnClickListener {
@@ -40,9 +40,9 @@ class DealsListFragment : Fragment() {
 
             if (currentPlatform != PlatformType.FOREX_MODE) {
                 changePlatform(PlatformType.FOREX_MODE)
+            } else {
+                selectTradingTab()
             }
-
-            selectTradingTab()
         }
 
         view.findViewById<Button>(R.id.closed_op_deal_button).setOnClickListener {
