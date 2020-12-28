@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_profile"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.space307.navtest.fragments.ProfileFragment"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/navigateToTradersWay"
+            app:destination="@id/tradersWayFragment" />
+        <action
+            android:id="@+id/navigateToTasks"
+            app:destination="@id/tasksFragment" />
+        <action
+            android:id="@+id/navigateToAchievements"
+            app:destination="@id/achievementsFragment" />
+        <action
+            android:id="@+id/navigateToProfileSettings"
+            app:destination="@id/profileSettingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tradersWayFragment"
+        android:name="com.space307.navtest.fragments.TradersWayFragment"
+        tools:layout="@layout/fragment_traders_way">
+        <action
+            android:id="@+id/navigateToTradersWayAward"
+            app:destination="@id/tradersWayAwardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tradersWayAwardFragment"
+        android:name="com.space307.navtest.fragments.TradersWayAwardFragment"
+        tools:layout="@layout/fragment_traders_way_award">
+        <action
+            android:id="@+id/navigateToDeposit"
+            app:destination="@id/depositFragment" />
+        <action
+            android:id="@+id/navigateToVipMaterials"
+            app:destination="@id/vipMaterialsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/depositFragment"
+        android:name="com.space307.navtest.fragments.DepositFragment"
+        tools:layout="@layout/fragment_deposit" />
+
+    <fragment
+        android:id="@+id/vipMaterialsFragment"
+        android:name="com.space307.navtest.fragments.VipMaterialsFragment"
+        tools:layout="@layout/fragment_vip_materials" />
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.space307.navtest.fragments.TasksFragment"
+        tools:layout="@layout/fragment_tasks" />
+
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.space307.navtest.fragments.AchievementsFragment"
+        tools:layout="@layout/fragment_achievements" >
+        <action
+            android:id="@+id/navigateToAchievementBottomSheet"
+            app:destination="@id/achievementBottomSheet" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/achievementBottomSheet"
+        android:name="com.space307.navtest.fragments.AchievementBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_achievement" />
+
+    <fragment
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.space307.navtest.fragments.ProfileSettingsFragment"
+        tools:layout="@layout/fragment_profile_settings">
+        <action
+            android:id="@+id/navigateToEmailConfirmation"
+            app:destination="@id/emailConfirmationFragment" />
+        <action
+            android:id="@+id/navigateToAccountVerification"
+            app:destination="@id/accountVerificationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/emailConfirmationFragment"
+        android:name="com.space307.navtest.fragments.EmailConfirmationFragment"
+        tools:layout="@layout/fragment_email_confirmation" />
+
+    <fragment
+        android:id="@+id/accountVerificationFragment"
+        android:name="com.space307.navtest.fragments.AccountVerificationFragment"
+        tools:layout="@layout/fragment_account_verification" />
+
+
+</navigation>

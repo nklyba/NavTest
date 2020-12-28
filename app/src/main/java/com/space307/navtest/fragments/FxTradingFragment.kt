@@ -23,6 +23,10 @@ class FxTradingFragment : Fragment() {
             findNavController().navigate(R.id.navigateToAssets)
         }
 
+        view.findViewById<Button>(R.id.profile_button).setOnClickListener {
+            findNavController().navigate(R.id.navigateToProfile)
+        }
+
         view.findViewById<Button>(R.id.deposit_button).setOnClickListener {
             findNavController().navigate(R.id.navigateToDeposit)
         }
