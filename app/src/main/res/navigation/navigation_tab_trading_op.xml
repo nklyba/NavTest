@@ -12,6 +12,18 @@
         <action
             android:id="@+id/navigateToAssets"
             app:destination="@id/assetsFragment" />
+        <action
+            android:id="@+id/navigateToDeposit"
+            app:destination="@id/depositFragment" />
+        <action
+            android:id="@+id/navigateToAccountPicker"
+            app:destination="@id/accountPickerBottomSheet" />
+        <action
+            android:id="@+id/navigateToIndicators"
+            app:destination="@id/indicatorsBottomSheet" />
+        <action
+            android:id="@+id/navigateToRateApp"
+            app:destination="@id/rateAppDialog" />
     </fragment>
 
     <fragment
@@ -24,5 +36,25 @@
             app:popUpTo="@id/opTradingFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/depositFragment"
+        android:name="com.space307.navtest.fragments.DepositFragment"
+        tools:layout="@layout/fragment_deposit" />
+
+    <dialog
+        android:id="@+id/accountPickerBottomSheet"
+        android:name="com.space307.navtest.fragments.AccountPickerBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_account_picker"/>
+
+    <dialog
+        android:id="@+id/indicatorsBottomSheet"
+        android:name="com.space307.navtest.fragments.IndicatorsBottomSheetDialog"
+        tools:layout="@layout/bottom_sheet_indicators"/>
+
+    <dialog
+        android:id="@+id/rateAppDialog"
+        android:name="com.space307.navtest.fragments.RateAppDialog"
+        tools:layout="@layout/dialog_rate_app"/>
 
 </navigation>

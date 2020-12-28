@@ -23,8 +23,26 @@ class FxTradingFragment : Fragment() {
             findNavController().navigate(R.id.navigateToAssets)
         }
 
+        view.findViewById<Button>(R.id.deposit_button).setOnClickListener {
+            findNavController().navigate(R.id.navigateToDeposit)
+        }
+
+        view.findViewById<Button>(R.id.account_picker_button).setOnClickListener {
+            findNavController().navigate(R.id.navigateToAccountPicker)
+        }
+
+        view.findViewById<Button>(R.id.indicators_button).setOnClickListener {
+            findNavController().navigate(R.id.navigateToIndicators)
+        }
+
+        view.findViewById<Button>(R.id.rate_app_button).setOnClickListener {
+            findNavController().navigate(R.id.navigateToRateApp)
+        }
+
         return view
     }
+
+    //region Log lifecycle
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,4 +91,6 @@ class FxTradingFragment : Fragment() {
 
         Log.d("Fragments", "FxTradingFragment - onDetach")
     }
+
+    //endregion
 }
